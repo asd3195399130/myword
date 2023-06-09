@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    body {
+      background: url("./20210520120315610.jpg") no-repeat;
+      overflow: auto scroll;
+    }
+    div {
+      width: 500px;
+
+      box-shadow: 0 0 10px #000;
+      background-color: red;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+    }
+    input:last-child {
+      width: 200px;
+      text-align: center;
+      font-size: 15px;
+      margin-left: 50px;
+      background-color: #000;
+      color: white;
+      letter-spacing: 15px;
+    }
+    .lybox {
+      border-bottom: 1px solid gold;
+      font-weight: 900;
+      color: green;
+    }
+  </style>
+  <body>
+    <form
+      action="#"
+      id="from"
+      style="width: 500px; border: 1px solid red; margin: auto">
+      <h1>留言板</h1>
+      <br />
+      标题： <input type="text" name="title" id="" /> <br /><br />
+      留言人：<input type="text" name="name" id="" /><br /><br />
+      内容：<textarea name="content" id="" cols="30" rows="10"> </textarea
+      ><br /><br />
+      <input type="submit" name="" id="" value="提交" />
+    </form>
+    <div id="box">
+      <div class="lybox">
+        <!-- 留言标题：<span id="lytitle"></span><br /><br />
+        留言人：<span id="lyname"></span> <br /><br />
+        留言内容：<span id="con"></span><br /><br />
+        留言时间：<span id="lytime"></span><br /><br /> -->
+      </div>
+    </div>
+  </body>
+  <script>
+    const box = document.getElementById("box");
+    const from = document.querySelector("form");
+    (function () {
+      getlist();
+      box.addEventListener("click", delly);
+      from.addEventListener("submit", subfun);
+    })();
+    function subfun() {
+      event.preventDefault();
+      let data = new FormData(this);
+      const xhr = new XMLHttpRequest();
+      xhr.open("post", "https://liu.zzgoodqc.cn/lyb/add");
+      xhr.send(data);
+      xhr.onload = function () {
+        console.log(xhr.response);
+        getlist();
+      };
+    }
+    function delly() {
+      event.preventDefault();
+      console.log(event.target);
+      if (event.target.nodeName == "A" && event.target.innerHTML == "删除") {
+        let id = event.target.dataset.id;
+        const xhr = new XMLHttpRequest();
+        xhr.open("get", "https://liu.zzgoodqc.cn/lyb/del?id=" + id);
+        xhr.send();
+        xhr.responseType = "json";
+        xhr.onload = function () {
+          getlist();
+        };
+      }
+    }
+    function getlist() {
+      const xhr = new XMLHttpRequest();
+      xhr.open("get", "https://liu.zzgoodqc.cn/lyb/list");
+      xhr.send();
+      xhr.responseType = "json";
+      xhr.onload = function () {
+        showlist(xhr.response);
+      };
+    }
+    function showlist(data) {
+      data = data.data.sort((a, b) => {
+        return b.id - a.id;
+      });
+      let html = "";
+      data.forEach((item, index) => {
+        html += `<div class="lybox">
+        留言标题：<span id="lytitle">${item.title}</span><br /><br />
+        留言人：<span id="lyname">${item.name}</span> <br /><br />
+        留言内容：<span id="con">${item.content}</span><br /><br />
+        留言时间：<span id="lytime">${item.created_at}</span><br /><br />
+        <a href="#" data-id=${item.id}>删除</a>
+      </div>`;
+      });
+      box.innerHTML = html;
+    }
+  </script>
+</html>

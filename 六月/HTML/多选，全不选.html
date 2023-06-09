@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      div {
+        width: 700px;
+        height: 50px;
+        background-color: aqua;
+        line-height: 50px;
+        margin: auto;
+        color: blue;
+      }
+
+      ul {
+        width: 600px;
+        margin: auto;
+        cursor: pointer;
+        /*鼠标*/
+        display: none;
+      }
+
+      div input {
+        margin-right: 250px;
+      }
+
+      li {
+        list-style: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="but"><input type="checkbox" id="iput" />人事部</div>
+    <ul id="box">
+      <li><input type="checkbox" />人事总监</li>
+      <li><input type="checkbox" />人事经理</li>
+      <li><input type="checkbox" />人事主管</li>
+      <li><input type="checkbox" />招聘专员</li>
+      <li><input type="checkbox" />考核专员</li>
+      <li><input type="checkbox" />培训专员</li>
+    </ul>
+    <div id="but1"><input type="checkbox" id="iut1" />后勤部</div>
+    <ul id="box1">
+      <li><input type="checkbox" />后勤部长</li>
+      <li><input type="checkbox" />副部长</li>
+      <li><input type="checkbox" />绩效考核员</li>
+      <li><input type="checkbox" />招聘专员</li>
+      <li><input type="checkbox" />培训专员</li>
+      <li><input type="checkbox" />后勤专员</li>
+      <li><input type="checkbox" />仓库管理员</li>
+    </ul>
+    <div id="but2"><input type="checkbox" id="tua" />行政部</div>
+    <ul id="box2">
+      <li><input type="checkbox" />第三组01</li>
+      <li><input type="checkbox" />第三组02</li>
+      <li><input type="checkbox" />第三组03</li>
+      <li><input type="checkbox" />第三组04</li>
+    </ul>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+    <script>
+      $(function () {
+        // 人员
+        $("div").click(function () {
+          $("ul").hide().eq($("div").index(this)).show();
+        });
+        //全选全不选
+        $("#iput").click(function () {
+          console.log($(this).prop("checked"));
+          if ($(this).prop("checked")) {
+            $("#box input").prop("checked", "true");
+          } else {
+            $("#box input").prop("checked", false);
+          }
+        });
+        // 选到最后一个实现全选
+        $("#box").on("click", "input", function () {
+          let i = 0;
+          $("#box input").each(function () {
+            if ($(this).prop("checked") == true) {
+              i++;
+            }
+          });
+          if (i < $("#box input").length) {
+            $("#iput").prop("checked", false);
+          } else {
+            $("#iput").prop("checked", true);
+          }
+        });
+        //  项目
+        //全选全不选
+        $("#iut1").click(function () {
+          console.log($(this).prop("checked"));
+          if ($(this).prop("checked")) {
+            $("#box1 input").prop("checked", "true");
+          } else {
+            $("#box1 input").prop("checked", false);
+          }
+        });
+        // 选到最后一个实现全选
+        $("#box1").on("click", "input", function () {
+          let i = 0;
+          $("#box1 input").each(function () {
+            if ($(this).prop("checked") == true) {
+              i++;
+            }
+          });
+          if (i < $("#box1 input").length) {
+            $("#iut1").prop("checked", false);
+          } else {
+            $("#iut1").prop("checked", true);
+          }
+        });
+        //  机构
+        //全选
+        $("#tua").click(function () {
+          if ($(this).prop("checked")) {
+            $("#box2 input").prop("checked", "true");
+          } else {
+            $("#box2 input").prop("checked", false);
+          }
+        });
+        // 选到最后一个实现全选
+        $("#box2").on("click", "input", function () {
+          let i = 0;
+          $("#box2 input").each(function () {
+            if ($(this).prop("checked") == true) {
+              i++;
+            }
+          });
+          if (i < $("#box2 input").length) {
+            $("#tua").prop("checked", false);
+          } else {
+            $("#tua").prop("checked", true);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

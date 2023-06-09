@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="" />
+  </head>
+  <style>
+    #ci {
+      width: 500px;
+      height: 500px;
+      border: 1px solid red;
+    }
+  </style>
+  <body>
+    <div id="box">
+      <p id="ci"></p>
+      <button id="everyonce">每日一词</button>
+    </div>
+  </body>
+  <script>
+    (function () {
+      everyoncefun();
+    })();
+
+    function everyoncefun() {
+      document.getElementById("box").addEventListener("click", function () {
+        fetch("https://v.api.aa1.cn/api/yiyan/index.php")
+          .then((res) => {
+            return res.text();
+          })
+          .then((resault) => {
+            ci.innerHTML = resault;
+          });
+      });
+    }
+  </script>
+</html>

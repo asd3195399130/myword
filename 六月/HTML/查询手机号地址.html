@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="" />
+  </head>
+  <style>
+    #box {
+      width: 500px;
+      margin: auto;
+    }
+    #text {
+      width: 500px;
+      margin: auto;
+      height: 200px;
+      border: 1px solid red;
+    }
+  </style>
+  <body>
+    <div id="box">
+      <form action="#">
+        查询手机号<input type="text" name="" id="input" />
+        <button id="submit">提交手机号</button>
+      </form>
+    </div>
+    <div id="text"></div>
+  </body>
+  <script>
+    (function () {
+      photofun();
+    })();
+    function photofun() {
+      document.querySelector("form").addEventListener("click", function () {
+        event.preventDefault();
+        let res = document.getElementById("input").value;
+
+        fetch("https://v.api.aa1.cn/api/phone/guishu-api.php?phone=" + res)
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            let html = "";
+            if (data.code == 0 && data.data.city != "") {
+              html += `
+                <h1>
+                  此号码为：${data.data.province}省，${data.data.city}市，${data.data.sp}号码
+                </h1>
+            `;
+            } else {
+              html += `
+                  <h1> 号码不正确</h1>
+                `;
+            }
+            text.innerHTML = html;
+          });
+      });
+    }
+  </script>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../sass/电影.css" />
+    <link rel="stylesheet" href="../插件/layui-v2.8.3/layui/css/layui.css" />
+    <script src="../插件/layui-v2.8.3/layui/layui.js"></script>
+  </head>
+  <style></style>
+  <body>
+    <div id="box">
+      <h2>看电影</h2>
+      <div id="boos"></div>
+      <button class="layui-btn layui-btn-normal" id="pageUP">上一页</button>
+      <span id="num">1</span>
+      <button class="layui-btn layui-btn-normal" id="nextdown">下一页</button>
+    </div>
+  </body>
+  <script>
+    var id = 1;
+
+    let movie = document.getElementById("movie");
+    let box = document.getElementById("box");
+    let boos = document.getElementById("boos");
+    pageUP.addEventListener("click", function () {
+      id--;
+      if (id < 1) {
+        id = 1;
+        alert("已经是第一页");
+      } else {
+        moviefun();
+        num.innerHTML = id;
+      }
+    });
+    nextdown.addEventListener("click", function () {
+      id++;
+      if (id > 5) {
+        id = 5;
+        alert("已是最后一页");
+      } else {
+        moviefun();
+        num.innerHTML = id;
+      }
+    });
+    box.addEventListener("click", moviefun());
+
+    function moviefun() {
+      let xhr = new XMLHttpRequest();
+      xhr.open("get", "https://liu.zzgoodqc.cn/movie/list?page=" + id);
+      xhr.send();
+      xhr.responseType = "json";
+      xhr.onload = function () {
+        watchmovie(xhr.response);
+      };
+    }
+    function watchmovie(data) {
+      console.log(data);
+      let html = "";
+      data.coming.forEach((item, index) => {
+        html += `<div id="movie">
+        <img src="${item.img}" alt="" />
+        <a href="#">${item.nm}</a>
+        <span>${item.star}</span>
+      </div>`;
+      });
+      boos.innerHTML = html;
+    }
+  </script>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="" />
+  </head>
+  <style>
+    #box {
+      width: 500px;
+      height: 500px;
+      display: flex;
+      justify-content: space-between;
+    }
+    select {
+      width: 400px;
+      height: 200px;
+      text-align: center;
+    }
+  </style>
+  <body>
+    <div id="box">
+      <select multiple="multiple" id="select1">
+        <option value="红旗H5">红旗H5</option>
+        <option value="宝马">宝马</option>
+        <option value="宾利">宾利</option>
+        <option value="大奔">大奔</option>
+        <option value="迈巴赫">迈巴赫</option>
+        <option value="劳斯莱斯">劳斯莱斯</option>
+      </select>
+      <div class="middle">
+        <button id="moveup">上移</button>
+        <button id="movedown">下移</button>
+        <button id="toRight">添加</button>
+        <button id="toLeft">移除</button>
+      </div>
+      <select multiple="multiple" id="select2"></select>
+    </div>
+  </body>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+  <script>
+    $(function () {
+      $("select option").click(function () {
+        $(this).addClass("selected").siblings().removeClass("selected");
+      });
+      $("#toRight").click(function () {
+        $("#select2").append($("#select1 .selected"));
+        $("#select1 .selected").remove();
+      });
+      $("#moveup").click(function () {
+        $(".selected").prev().before($(".selected"));
+      });
+      $("#movedown").click(function () {
+        $(".selected").next().after($(".selected"));
+      });
+      $("#toLeft").click(function () {
+        $("#select1 ").append($("#select2 .selected"));
+        $("#select2 .selected").remove();
+      });
+    });
+  </script>
+</html>

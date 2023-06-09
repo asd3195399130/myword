@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .list-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 200px;
+        height: 300px;
+        overflow-y: auto;
+      }
+
+      .list-box h2 {
+        margin: 0;
+        padding: 0;
+        font-size: 18px;
+        font-weight: 900;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+
+      .list-box ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+      }
+
+      .list-box li {
+        padding: 5px;
+        margin-bottom: 5px;
+        /* background-color: #f5f5f5; */
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+      }
+      .selected {
+        background-color: #b92b27;
+      }
+      #moveRight {
+        margin-left: 10px;
+      }
+      .selected:hover {
+        background-color: #4caf50;
+        color: #1565c0;
+      }
+
+      .btn {
+        display: block;
+        margin: 10px auto;
+        padding: 5px 10px;
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .btn:hover {
+        background-color: #3e8e41;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="list-box">
+        <h2>可选项</h2>
+        <ul id="leftList"></ul>
+      </div>
+      <div>
+        <button class="btn" id="moveRight">
+          <img src="../image/左右箭头-copy.png" alt="" />
+        </button>
+        <button id="topBtn">
+          <img src="../image/上箭头.png" alt="" />
+        </button>
+        <button id="buttimBtn">
+          <img src="../image/下箭头.png" alt="" />
+        </button>
+      </div>
+      <div class="list-box">
+        <h2>已选项</h2>
+        <ul id="rightList"></ul>
+      </div>
+    </div>
+  </body>
+  <script>
+    let leftArr = [
+        {
+          name: "选项1",
+          state: false,
+        },
+        {
+          name: "选项2",
+          state: false,
+        },
+        {
+          name: "选项3",
+          state: false,
+        },
+        {
+          name: "选项4",
+          state: false,
+        },
+      ],
+      rightArr = [
+        {
+          name: "11",
+          state: false,
+        },
+        {
+          name: "22",
+          state: false,
+        },
+      ];
+    const moveRightBtn = document.getElementById("moveRight");
+
+    (function () {
+      fun();
+    })();
+    function fun() {
+      rightFun();
+      LeftFun();
+    }
+    moveRightBtn.addEventListener("click", function () {
+      changeColor();
+      fun();
+    }); //移动按钮点击事件，执行函数fun函数。。。。。。。。
+    topBtn.addEventListener("click", function () {
+      leftArr.forEach((item, index) => {
+        if (item.state) {
+          let temp = leftArr[index];
+          leftArr.splice(index, 1);
+          leftArr.splice(index - 1, 0, temp);
+          item.state = false;
+        }
+      });
+      rightArr.forEach((item, index) => {
+        if (item.state) {
+          let temp = rightArr[index];
+          rightArr.splice(index, 1);
+          rightArr.splice(index - 1, 0, temp);
+          item.state = false;
+        }
+      });
+      fun();
+    });
+    buttimBtn.addEventListener("click", function () {
+      leftArr.forEach((item, index) => {
+        if (item.state) {
+          let temp = leftArr[index];
+          leftArr.splice(index, 1);
+          leftArr.splice(index + 1, 0, temp);
+          item.state = false;
+        }
+      });
+      rightArr.forEach((item, index) => {
+        if (item.state) {
+          let temp = rightArr[index];
+          rightArr.splice(index, 1);
+          rightArr.splice(index + 1, 0, temp);
+          item.state = false;
+        }
+      });
+      fun();
+    });
+    function LeftFun() {
+      let html = "";
+      leftArr.forEach((item, index) => {
+        html += ` <li data-index="${index}">${item.name}</li>`;
+      });
+      leftList.innerHTML = html;
+    } //向左移动函数,
+    function rightFun() {
+      let html = "";
+      rightArr.forEach((item, index) => {
+        html += ` <li data-index="${index}">${item.name}</li>`;
+      });
+      rightList.innerHTML = html;
+    }
+    rightList.addEventListener("click", function () {
+      if (event.target.tagName === "LI") {
+        event.target.classList.add("selected");
+        let index = event.target.dataset.index;
+        rightArr[index].state = !rightArr[index].state; //选中状态改变，不然会发生变化。。。。。。
+      }
+    });
+    leftList.addEventListener("click", function () {
+      if (event.target.tagName === "LI") {
+        event.target.classList.add("selected");
+        let index = event.target.dataset.index;
+        console.log(index);
+        leftArr[index].state = !leftArr[index].state; //选中状态改变，不然会发生变化。。。。。。
+      }
+    });
+
+    function changeColor() {
+      let leftD = [],
+        rightD = [];
+      leftArr = leftArr.filter((item, index) => {
+        if (item.state) {
+          leftD.push(item);
+        }
+        return item.state == false;
+      });
+
+      rightArr = rightArr.filter((item, index) => {
+        if (item.state) {
+          rightD.push(item);
+        }
+        return item.state == false;
+      });
+      leftArr = [...leftArr, ...rightD];
+      rightArr = [...rightArr, ...leftD];
+      console.log(leftArr);
+      leftArr.forEach((item, index) => {
+        if (item.state) {
+          item.state = false;
+        }
+      });
+      rightArr.forEach((item, index) => {
+        if (item.state) {
+          item.state = false;
+        }
+      });
+    }
+  </script>
+</html>

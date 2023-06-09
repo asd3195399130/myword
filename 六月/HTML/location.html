@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="" />
+  </head>
+  <style>
+    #box {
+      width: 500px;
+      height: 500px;
+      border: 1px solid black;
+    }
+  </style>
+  <body>
+    <div id="box"></div>
+    <button id="cutimg">切换背景图</button>
+  </body>
+  <script>
+    let body = document.querySelector("body");
+    let photo = [
+      "https://siwa7.com/zb_users/upload/2020/06/wxsync-7579717495ee20d00412c31591872768.jpeg",
+      "https://ts1.cn.mm.bing.net/th/id/R-C.bf58c8c97426050fc1f1810478616edd?rik=vsUZwH2q%2fk21uA&riu=http%3a%2f%2fpic.bizhi360.com%2fbpic%2f89%2f9689_11.jpg&ehk=wyWGP30JUWW20E7YRnGwgU5dPZiJhYlRuio76yDhVJU%3d&risl=&pid=ImgRaw&r=0",
+      "https://tse2-mm.cn.bing.net/th/id/OIP-C.vYTDFCHwrVutiPHX3dRDYAHaLH?w=185&h=278&c=7&r=0&o=5&pid=1.7",
+      "https://ts1.cn.mm.bing.net/th/id/R-C.a748404429767eb0174de82092b56513?rik=8tNoOVIHylaWiQ&riu=http%3a%2f%2fimage.qianye88.com%2fpic%2fe7e2c2975beb40576d0529b6a74b0b73&ehk=GptDpjYwwG03IQqYkeX2KlsqlOVIvwemy1kKgrGR3q4%3d&risl=&pid=ImgRaw&r=0",
+      "https://tse4-mm.cn.bing.net/th/id/OIP-C.bXOql87MFata1PTwuKorqAHaF-?w=202&h=180&c=7&r=0&o=5&pid=1.7",
+      "https://tse1-mm.cn.bing.net/th/id/OIP-C.qYYd8iFNVg0LMjHDg29GJAHaHm?w=162&h=180&c=7&r=0&o=5&pid=1.7",
+      "https://tse2-mm.cn.bing.net/th/id/OIP-C.KoPc0i4Ninj5nBGzhhI0HwHaE8?w=240&h=180&c=7&r=0&o=5&pid=1.7",
+    ];
+    var photos = localStorage.getItem("background-photo");
+    if (photo) {
+      bod.style.backgroundImage = url("+ photo+");
+    }
+  </script>
+</html>

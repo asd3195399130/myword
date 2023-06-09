@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="" />
+    <script src="../js/city.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+  </head>
+  <style></style>
+  <body>
+    <div id="box">
+      <select name="" id="province">
+        <option value="">请选择省份</option>
+      </select>
+      <select name="" id="city">
+        <option value="">请选择城市</option>
+      </select>
+      <select name="" id="area">
+        <option value="">请选择区\县</option>
+      </select>
+    </div>
+  </body>
+  <script>
+    $(function () {
+      showproince();
+    });
+    let provinceindex, cityindex;
+    function showproince() {
+      let html = '<option value="">请选择省份</option>';
+      citys.forEach((item, index) => {
+        html += `<option value="${index}">${item.name}</option>`;
+      });
+      $("#province").html(html);
+    }
+    $("#province").change(function () {
+      // $("#city").html('<option value="">请选择城市</option>');
+      provinceindex = this.value;
+      let city = citys[provinceindex].city;
+      let html = ' <option value="">请选择城市</option>';
+      city.forEach((item, index) => {
+        html += `<option value="${index}">${item.name}</option>`;
+      });
+      $("#city").html(html);
+    });
+    $("#city").change(function () {
+      cityindex = this.value;
+      let area = citys[provinceindex].city[cityindex].area;
+      let html = `<option value="">请选择区\县</option>`;
+      area.forEach((item, index) => {
+        html += `<option value="${index}">${item}</option>`;
+      });
+      $("#area").html(html);
+    });
+  </script>
+</html>

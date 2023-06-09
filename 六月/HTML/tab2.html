@@ -1,0 +1,171 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="" />
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    #box {
+      width: 500px;
+      height: 500px;
+      border: 1px solid red;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    ul {
+      list-style: none;
+      float: left;
+    }
+    ul li {
+      width: 90px;
+      height: 50px;
+      border: 1px solid red;
+      cursor: pointer;
+    }
+    .tab {
+      width: 406px;
+      height: 500px;
+      border: 1px solid red;
+      float: right;
+      text-align: center;
+      color: blue;
+    }
+    img {
+      width: 300px;
+      height: 478px;
+    }
+    .tab-content {
+      display: block;
+    }
+  </style>
+  <body>
+    <div id="box">
+      <ul>
+        <li>选项一</li>
+        <li>选项二</li>
+        <li>选项三</li>
+      </ul>
+      <div class="tab">
+        <div class="content">
+          <p>天气不错一起去郊游</p>
+          <img
+            src="https://img0.baidu.com/it/u=1442429095,290900634&fm=253&app=138&size=w931&n=0&f=JPEG&fmt=auto?sec=1686330000&t=352f7deb93dc5d5709e8680c0937d3bc"
+            alt="" />
+        </div>
+        <div style="display: none" class="">
+          <p>2</p>
+          <img
+            src="https://img2.baidu.com/it/u=163499027,977525356&fm=253&fmt=auto&app=138&f=JPEG?w=779&h=500"
+            alt="" />
+        </div>
+        <div style="display: none" class="">
+          <p>3</p>
+          <img
+            src="https://img2.baidu.com/it/u=472675434,2717908048&fm=253&fmt=auto&app=120&f=JPEG?w=500&h=883"
+            alt="" />
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+  <script>
+    $(function () {
+      $("ul li").on("click", function () {
+        console.log(123);
+        $(".tab").removeClass("content");
+      });
+    });
+  </script>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="" />
+  </head>
+  <style>
+    .tab {
+      display: flex;
+    }
+
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      width: 100px;
+    }
+
+    li {
+      background-color: #f1f1f1;
+      border: 1px solid gray;
+    }
+
+    li a {
+      display: block;
+      color: black;
+      padding: 8px 16px;
+      text-decoration: none;
+    }
+
+    li.active {
+      background-color: white;
+    }
+
+    .tabcontent {
+      display: none;
+      padding: 6px 12px;
+      border: 1px solid gray;
+      border-top: none;
+      flex: 1;
+    }
+  </style>
+  <body>
+    <div class="tab">
+      <ul>
+        <li class="active"><a href="#tab1">Tab 1</a></li>
+        <li><a href="#tab2">Tab 2</a></li>
+        <li><a href="#tab3">Tab 3</a></li>
+      </ul>
+
+      <div id="tab1" class="tabcontent">
+        <h3>Tab 1 Content</h3>
+        <p>This is Tab 1 content.</p>
+      </div>
+
+      <div id="tab2" class="tabcontent">
+        <h3>Tab 2 Content</h3>
+        <p>This is Tab 2 content.</p>
+      </div>
+
+      <div id="tab3" class="tabcontent">
+        <h3>Tab 3 Content</h3>
+        <p>This is Tab 3 content.</p>
+      </div>
+    </div>
+  </body>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+  <script>
+    $(document).ready(function () {
+      $("li").click(function (e) {
+        e.preventDefault();
+        var tabId = $(this).find("a").attr("href");
+        $(".tabcontent").hide();
+        $(tabId).show();
+        $("li").removeClass("active");
+        $(this).addClass("active");
+      });
+    });
+  </script>
+</html>

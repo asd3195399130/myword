@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="" />
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    #box {
+      width: 500px;
+      height: 500px;
+      border: 1px solid red;
+      margin: auto;
+    }
+    ul {
+      list-style: none;
+      display: flex;
+      justify-content: space-around;
+    }
+    li {
+      width: 150px;
+    }
+    button {
+      width: 150px;
+      height: 30px;
+    }
+    img {
+      width: 500px;
+      height: 470px;
+    }
+    #tab2 {
+      display: none;
+    }
+    #tab3 {
+      display: none;
+    }
+  </style>
+  <body>
+    <div id="box">
+      <ul>
+        <li><button id="btn">选项一</button></li>
+        <li><button id="btn2">选项二</button></li>
+        <li><button id="btn3">选项三</button></li>
+      </ul>
+      <div id="tab1">
+        <img
+          src="https://img0.baidu.com/it/u=4080020891,2696815750&fm=253&app=138&size=w931&n=0&f=JPEG&fmt=auto?sec=1686330000&t=9eb907c5069111b41575f15389eec711"
+          alt="" />
+      </div>
+      <div id="tab2">
+        <img
+          src="https://img1.baidu.com/it/u=2810409877,2768480431&fm=253&fmt=auto&app=138&f=JPEG?w=376&h=500"
+          alt="" />
+      </div>
+      <div id="tab3">
+        <img
+          src="https://img1.baidu.com/it/u=2127571423,2356059925&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=666"
+          alt="" />
+      </div>
+    </div>
+  </body>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+  <script>
+    $(function () {
+      $("#btn").click(function () {
+        console.log(this);
+        $("#tab2").hide();
+        $("#tab1").show();
+        $("#tab3").hide();
+      });
+      $("#btn2").click(function () {
+        $("#tab1").hide();
+        $("#tab2").show();
+        $("#tab3").hide();
+      });
+      $("#btn3").click(function () {
+        $("#tab1").hide();
+        $("#tab2").hide();
+        $("#tab3").show();
+      });
+    });
+  </script>
+</html>

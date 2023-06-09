@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>商品列表</title>
+    <link rel="stylesheet" href="../插件/layui-v2.8.3/layui/css/layui.css" />
+    <script src="../插件/layui-v2.8.3/layui/layui.js"></script>
+  </head>
+  <style>
+    #box {
+      width: 1200px;
+      border: 1px solid red;
+      margin: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 2px solid black;
+    }
+    #box {
+      text-align: center;
+    }
+    img {
+      width: 115px;
+      height: 119px;
+    }
+    h1 {
+      display: inline-block;
+    }
+    #submitgoods {
+      width: 500px;
+      height: 500px;
+      border: 1px solid red;
+      text-align: center;
+      display: none;
+    }
+    #submitgoods h2 {
+      text-align: center;
+      height: 80px;
+      line-height: 80px;
+      color: blue;
+    }
+    form {
+      display: grid;
+      grid-gap: 1em;
+      position: relative;
+    }
+    input {
+      padding: 0.5em;
+      border: 1px solid #ccc;
+      border-radius: 15px;
+      background-color: #fff;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+      font-size: 1rem;
+    }
+
+    /* 标签样式 */
+    label {
+      display: inline-block;
+      width: 100px;
+      text-align: right;
+      font-weight: bold;
+      margin-right: 1em;
+    }
+
+    /* 状态反馈 */
+    input:invalid {
+      border-color: #d52b1e;
+    }
+
+    input:valid {
+      border-color: #7ab800;
+    }
+    tbody tr:hover {
+      background-color: red;
+    }
+    form button {
+      width: 200px;
+      margin-left: 10px;
+    }
+    #Unaddthen {
+      position: absolute;
+      bottom: 0px;
+      left: 272px;
+    }
+    #search {
+      width: 300px;
+      height: 160px;
+      border: 1px solid black;
+      margin-left: 43px;
+    }
+  </style>
+  <body>
+    <div id="submitgoods">
+      <h2 id="h2">添加商品</h2>
+      <form action="#" id="form">
+        <div>
+          <span id="id"></span>
+        </div>
+        <div>
+          <label for="">商品名称:</label>
+          <input type="text" name="goods_name"" id="goods_name" value=""/>
+        </div>
+        <div>
+          <label for="">商品图片 :</label>
+          <input type="text" name="img" id="img" value="" />
+        </div>
+        <div>
+          <label for="">商品库存:</label>
+          <input type="text" name="stock" id="stock" value="" />
+        </div>
+        <div>
+          <label for="">商品价格 :</label>
+          <input type="text" name="price" id="price" value="" />
+        </div>
+        <div>
+          <label for="">商品上下架：</label>
+          <select name="status" id="status">
+            <option value="1">上架</option>
+            <option value="2">下架</option>
+          </select>
+        </div>
+        <div>
+          <label for="">商品状态：</label>
+          <input type="text" name="sold" id="sold" value="" />
+        </div>
+        <button id="addlist" class="layui-btn">添加商品</button>
+        <button class="layui-btn-danger layui-btn" id="Unaddthen">
+          取消添加
+        </button>
+      </form>
+    </div>
+    <div id="search">
+      <label for="">搜索商品</label>
+      <input type="text" name="" id="" class="layui-input" />
+      <button class="layui-btn">确认搜索</button>
+    </div>
+    <div id="box">
+      <h2>商品列表</h2>
+      <button id="addshop" class="layui-btn">添加商品</button>
+      <table border="1">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>商品名称</th>
+            <th>商品图片</th>
+            <th>商品价格</th>
+            <th>商品库存</th>
+            <th>商品上下架</th>
+            <th>商品状态</th>
+            <th>更新时间</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div id="page">
+        <button id="pageup" class="layui-btn">上一页</button>
+        <h1>1</h1>
+        <button id="nextpage" class="layui-btn">下一页</button>
+      </div>
+    </div>
+  </body>
+  <script>
+    let temp = 1;
+    let page = 1;
+    let form = document.querySelector("#form");
+    let tbody = document.querySelector("tbody");
+    (function () {
+      showgoodslist();
+      form.addEventListener("submit", submitgoodslist);
+      tbody.addEventListener("click", shelfgoodslist);
+    })();
+    document.getElementById("addshop").addEventListener("click", function () {
+      submitgoods.style.display = "block";
+    });
+    document.getElementById("search").addEventListener("click", function () {
+      console.log(333);
+    });
+    function shelfgoodslist() {
+      let data = new FormData(form);
+      var id = event.target.dataset.id;
+      temp = id;
+      if (
+        event.target.nodeName == "BUTTON" &&
+        event.target.innerHTML == "删除商品"
+      ) {
+        fetch("https://liu.zzgoodqc.cn/goods/delete?id=" + id)
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            showgoodslist();
+          });
+      }
+      if (
+        event.target.nodeName == "BUTTON" &&
+        event.target.innerHTML == "更新商品"
+      ) {
+        submitgoods.style.display = "block";
+        h2.innerHTML = "更新商品";
+        fetch("https://liu.zzgoodqc.cn/goods/detail?id=" + id)
+          .then((res) => res.json())
+          .then((resault) => {
+            // console.log(resault);
+            form.goods_name.value = resault.data.goods_name;
+            form.img.value = resault.data.img_name;
+            form.stock.value = resault.data.ctock;
+            form.price.value = resault.data.price;
+            form.status.value = resault.data.status;
+            form.sold.value = resault.data.sold;
+
+            // showgoodslist();
+          });
+      }
+    }
+    //添加商品
+    function submitgoodslist() {
+      event.preventDefault();
+      document
+        .getElementById("Unaddthen")
+        .addEventListener("click", function () {
+          submitgoods.style.display = "none";
+        });
+      if (h2.innerHTML == "添加商品") {
+        let data = new FormData(this);
+        fetch("https://liu.zzgoodqc.cn/goods/add", {
+          method: "POST",
+          body: data,
+        })
+          .then((res) => res.json())
+          .then((resault) => {
+            showgoodslist();
+          })
+          .catch((er) => {
+            console.log(err);
+          });
+      }
+      if (h2.innerHTML == "更新商品") {
+        addlist.innerHTML = "更新商品";
+        let data = new FormData(this);
+        data.append("id", temp);
+        fetch("https://liu.zzgoodqc.cn/goods/update", {
+          method: "POST",
+          body: data,
+        })
+          .then((res) => res.json())
+          .then((resault) => {
+            showgoodslist();
+          });
+      }
+    }
+
+    //单击上一页
+    pageup.addEventListener("click", function () {
+      //   console.log(123);
+      page--;
+      if (page < 1) {
+        page = 1;
+        alert("已经是第一页");
+      } else {
+        showgoodslist();
+        document.querySelector("h1").innerHTML = page;
+      }
+    });
+    //单击下一页
+    nextpage.addEventListener("click", function () {
+      page++;
+      showgoodslist();
+      document.querySelector("h1").innerHTML = page;
+    });
+    function showgoodslist() {
+      fetch(
+        "https://liu.zzgoodqc.cn/goods/listByPage?page=" + page + "&limit=10"
+      )
+        .then((res) => {
+          return res.json();
+        })
+        .then((resault) => {
+          showlist(resault);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    function showlist(data) {
+      let html = "";
+      data.data.sort((a, b) => {
+        return b.id - a.id;
+      });
+      data.data.forEach((item, index) => {
+        html += `  <tr>
+            <td>${item.id}</td>
+            <td>${item.goods_name}</td>
+            <td>
+              <img
+                src="${item.img}"
+                alt="" />
+            </td>
+            <td>${item.price}</td>
+            <td>${item.stock}</td>
+              <td>${item.stock == 1 ? "上架" : "下架"}</td>
+            <td>${item.sold}</td>
+            <td>${getdate(item.created_at)}</td>
+            <td>
+              <button class="layui-btn" data-id="${item.id}">更新商品</button>
+              <button class="layui-btn layui-btn-warm" data-id="${
+                item.id
+              }">查看商品</button>
+              <button class="layui-btn layui-btn-danger" data-id="${
+                item.id
+              }">删除商品</button>
+            </td>
+          </tr>`;
+      });
+      document.querySelector("tbody").innerHTML = html;
+    }
+    function getdate(datetime) {
+      //datetime是拿到的时间戳
+      var date = new Date(datetime); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+      var year = date.getFullYear(),
+        month = ("0" + (date.getMonth() + 1)).slice(-2),
+        sdate = ("0" + date.getDate()).slice(-2),
+        hour = ("0" + date.getHours()).slice(-2),
+        minute = ("0" + date.getMinutes()).slice(-2),
+        second = ("0" + date.getSeconds()).slice(-2);
+      // 拼接
+      var result =
+        year +
+        "-" +
+        month +
+        "-" +
+        sdate +
+        " " +
+        hour +
+        ":" +
+        minute +
+        ":" +
+        second;
+      // 返回
+      return result;
+    }
+  </script>
+</html>

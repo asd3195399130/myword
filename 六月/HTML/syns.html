@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="" />
+  </head>
+  <style>
+    input[type="checkbox"] {
+      width: 500px;
+      height: 500px;
+      background-color: red;
+      cursor: pointer;
+    }
+  </style>
+  <body>
+    <div id="box">你好</div>
+    <button onclick="openWindow()">open</button>
+    <button onclick="myFunction()">调整</button>
+
+    <input type="checkbox" name="" id="" />
+  </body>
+  <script>
+    var w;
+    function openWindow() {
+      w = window.open("http://www.baidu.com", "", "width=100,height=100");
+      w.focus();
+    }
+    function myFunction() {
+      w.resizeTo(500, 500);
+      w.focus();
+    }
+  </script>
+</html>

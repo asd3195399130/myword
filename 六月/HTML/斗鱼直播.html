@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="" />
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    #box {
+      margin: auto;
+      width: 500px;
+    }
+    #cliss {
+      width: 400px;
+      height: 400px;
+      margin: auto;
+    }
+    a {
+      font-size: 30px;
+      font-weight: 900;
+      text-decoration: none;
+      color: #0f9b0f;
+    }
+  </style>
+  <body>
+    <div id="box">
+      <form action="#">
+        搜索直播间：<input type="text" name="" id="input" />
+        <button id="submit">搜索</button>
+      </form>
+    </div>
+    <div id="cliss"></div>
+  </body>
+  <script>
+    (function () {
+      showdouyulist();
+    })();
+
+    function showdouyulist() {
+      document.querySelector("form").addEventListener("click", function () {
+        let res = document.getElementById("input").value;
+        fetch(
+          "https://v.api.aa1.cn/api/api-douyu/index.php?msg=" + res + "&b=1"
+        )
+          .then((res) => {
+            return res.text();
+          })
+          .then((result) => {
+            let jsonData = result
+              .replace(/<pre.*?>/gi, "")
+              .replace(/<\/pre>/gi, "");
+
+            jsonData = jsonData.replace(/,\s*\}/gi, "}");
+            //·将单引号转换为双引号
+            jsonData = jsonData.replace(/'/g, '"');
+            console.log(JSON.parse(jsonData));
+            watchtvfun(JSON.parse(jsonData));
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      });
+      res = "";
+    }
+    function watchtvfun(data) {
+      console.log(data);
+      let html = "";
+      html += `<div id="boos">
+      <img src="${data.tu}" alt="" />
+      <h3>${data.bzx}</h3>
+      <a href="${data.url}">${data.zbj}</a>
+    </div>`;
+      document.getElementById("cliss").innerHTML = html;
+    }
+  </script>
+</html>

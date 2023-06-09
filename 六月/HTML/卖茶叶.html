@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    table {
+      width: 85%;
+      border-collapse: collapse;
+      background-color: bisque;
+      margin: 0 auto;
+    }
+    table th,
+    table td {
+      border: 1px solid red;
+      text-align: center;
+    }
+    table th {
+      background-color: burlywood;
+    }
+    #fromadd {
+      width: 300px;
+      height: 300px;
+      border: 1px solid #000;
+      background-color: azure;
+      margin-top: 10px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(50%, -50%);
+    }
+    h2 {
+      text-align: center;
+    }
+    #fromadd button {
+      width: 100px;
+      height: 30px;
+      margin-top: 10px;
+    }
+    #box {
+      margin-top: 50px;
+    }
+  </style>
+  <body>
+    <div id="fromadd">
+      <form action="#">
+        <h2>添加茶叶</h2>
+        茶叶名称： <input type="text" name="name" id="nametea" value="" /><br />
+        茶叶类型：<input type="text" name="type" id="typetea" value="" /><br />
+        茶叶价格：<input
+          type="text"
+          name="price"
+          id="pricetea"
+          value="" /><br />
+        茶叶库存：<input
+          type="number"
+          name="stock"
+          id="numtea"
+          value="" /><br />
+        茶叶描述：<input
+          type="text"
+          name="description"
+          id="destea"
+          value="" /><br />
+        <button id="btn">添加茶叶</button>
+      </form>
+    </div>
+    <div id="box">
+      <h2>茶叶列表</h2>
+      <table border="1px">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>茶叶名称</th>
+            <th>茶叶类型</th>
+            <th>茶叶价格</th>
+            <th>茶叶库存</th>
+            <th>茶叶描述</th>
+            <th>创建时间</th>
+            <th>更新时间</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </body>
+  <script>
+    let data = [];
+    const tbody = document.querySelector("tbody");
+    const from = document.querySelector("form");
+    console.log(from);
+    (function () {
+      showtealist();
+      // showlist();
+      from.addEventListener("submit", addFun);
+      tbody.addEventListener("click", removeful);
+    })();
+    function removeful() {
+      let data = new FormData();
+      data.append("name", "龙井茶");
+      data.append("type", "绿茶");
+      data.append("price", "100");
+      let id = event.target.dataset.id;
+      var xhr = new XMLHttpRequest();
+      if (event.target.nodeName == "BUTTON") {
+        if (event.target.innerHTML == "删除茶叶") {
+          xhr.open("DELETE", "https://liu.zzgoodqc.cn/teas/" + id, true);
+          xhr.responseType = "json";
+          xhr.send();
+          xhr.onload = function () {
+            showtealist();
+          };
+        }
+        if (event.target.innerHTML == "查看茶叶") {
+          h2.innerHTML = "查看茶叶";
+          xhr.open("get", "https://liu.zzgoodqc.cn/teas/" + id, true);
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+              var data = JSON.parse(xhr.responseText);
+              data = data.data;
+              nametea.value = data.name;
+              typetea.value = data.type;
+              pricetea.value = data.price;
+              numtea.value = data.stock;
+              destea.value = data.description;
+            }
+          };
+          xhr.send();
+          xhr.onload = function () {
+            showtealist();
+          };
+        }
+        if (event.target.innerHTML == "更新茶叶") {
+          xhr.open("PUT", "https://liu.zzgoodqc.cn/teas/" + id, true);
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+              var data = JSON.parse(xhr.responseText);
+              data = data.data;
+              nametea.value = data.name;
+              typetea.value = data.type;
+              pricetea.value = data.price;
+              numtea.value = data.stock;
+              destea.value = data.description;
+            }
+          };
+          xhr.send();
+          xhr.onload = function () {
+            showtealist();
+          };
+        }
+      }
+    }
+
+    //添加列表
+    function addFun() {
+      event.preventDefault();
+      const data = new FormData(this);
+      console.log(data);
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", "https://liu.zzgoodqc.cn/teas");
+      xhr.send(data);
+      xhr.onload = function () {
+        showtealist();
+      };
+    }
+    //获取数据
+    function showtealist() {
+      let xhr = new XMLHttpRequest();
+      xhr.open("get", "https://liu.zzgoodqc.cn/teas");
+      xhr.send();
+      xhr.responseType = "json";
+      xhr.onload = function () {
+        // console.log(xhr.response);
+        showlist(xhr.response);
+      };
+    }
+    function showlist(data) {
+      let html = "";
+      data.data.sort((a, b) => {
+        return b.id - a.id;
+      });
+      data.data.forEach((item, index) => {
+        html += `<tr>
+            <td>${item.id}</td>
+            <td>${item.name}</td>
+            <td>${item.type}</td>
+            <td>${item.price}</td>
+            <td>${item.stock}</td>
+            <td>${item.description}</td>
+            <td>${getdate(item.created_at)}</td>
+            <td>${getdate(item.updated_at)}</td>
+            <td>
+              <button data-id = ${item.id}>查看茶叶</button>
+              <button data-id = ${item.id}>删除茶叶</button>
+              <button data-id = ${item.id}>更新茶叶</button>
+            </td>
+          </tr>`;
+      });
+      tbody.innerHTML = html;
+    }
+
+    //时间转时间戳
+    function getdate(datetime) {
+      //datetime是拿到的时间戳
+      var date = new Date(datetime); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+      var year = date.getFullYear(),
+        month = ("0" + (date.getMonth() + 1)).slice(-2),
+        sdate = ("0" + date.getDate()).slice(-2),
+        hour = ("0" + date.getHours()).slice(-2),
+        minute = ("0" + date.getMinutes()).slice(-2),
+        second = ("0" + date.getSeconds()).slice(-2);
+      // 拼接
+      var result =
+        year +
+        "-" +
+        month +
+        "-" +
+        sdate +
+        " " +
+        hour +
+        ":" +
+        minute +
+        ":" +
+        second;
+      // 返回
+      return result;
+    }
+  </script>
+</html>

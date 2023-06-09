@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="" />
+  </head>
+  <style>
+    #myList {
+      width: 200px;
+      height: 150px;
+    }
+
+    button {
+      margin-top: 10px;
+    }
+  </style>
+  <body>
+    <ul id="list">
+      <li>Item 1</li>
+      <li>Item 2</li>
+      <li>Item 3</li>
+      <li>Item 4</li>
+      <li>Item 5</li>
+    </ul>
+  </body>
+  <script>
+    // 获取列表元素
+    var list = document.getElementById("list");
+
+    // 获取列表项元素
+    var items = list.getElementsByTagName("li");
+
+    // 定义变量
+    var dragItem = null;
+
+    // 绑定mousedown事件
+    list.addEventListener("mousedown", function (e) {
+      // 判断是否点击了列表项
+      if (e.target.tagName === "LI") {
+        // 设置拖拽元素
+        dragItem = e.target;
+        // 设置拖拽元素的初始位置
+        dragItem.startIndex = Array.prototype.indexOf.call(items, dragItem);
+        // 设置拖拽元素的初始鼠标位置
+        dragItem.startY = e.clientY;
+      }
+    });
+
+    // 绑定mousemove事件
+    list.addEventListener("mousemove", function (e) {
+      // 判断是否有拖拽元素
+      if (dragItem) {
+        // 计算拖拽距离
+        var distance = e.clientY - dragItem.startY;
+        // 设置拖拽元素的位置
+        dragItem.style.transform = "translateY(" + distance + "px)";
+        // 阻止默认事件
+        e.preventDefault();
+      }
+    });
+
+    // 绑定mouseup事件
+    list.addEventListener("mouseup", function (e) {
+      // 判断是否有拖拽元素
+      if (dragItem) {
+        // 计算拖拽距离
+        var distance = e.clientY - dragItem.startY;
+        // 计算拖拽元素的目标位置
+        var targetIndex =
+          dragItem.startIndex + Math.round(distance / dragItem.offsetHeight);
+        // 判断目标位置是否合法
+        if (targetIndex < 0) {
+          targetIndex = 0;
+        } else if (targetIndex >= items.length) {
+          targetIndex = items.length - 1;
+        }
+        // 移动拖拽元素到目标位置
+        list.insertBefore(dragItem, items[targetIndex]);
+        // 清空拖拽元素
+        dragItem.style.transform = "";
+        dragItem = null;
+      }
+    });
+  </script>
+</html>

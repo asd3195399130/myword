@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../插件/layui-v2.8.3/layui/css/layui.css" />
+    <script src="../插件/layui-v2.8.3/layui/layui.js"></script>
+  </head>
+  <style>
+    #box {
+      width: 400px;
+      height: 500px;
+      border: solid 3px green;
+      text-align: center;
+      margin: auto;
+    }
+  </style>
+  <body>
+    <div id="box">
+      <h2>登录</h2>
+      <div class="box-name">
+        <label for="username">用户名:</label>
+        <input type="text" name="" id="username" />
+      </div>
+      <div>
+        <label for="password" style="letter-spacing: 3.5px">密 码:</label>
+        <input type="password" name="" id="password" />
+      </div>
+      <div class="box-rem">
+        <label for="remember">记住我</label>
+        <input type="checkbox" name="" id="remember" />
+      </div>
+      <button class="layui-btn" id="login-btn">登录</button>
+    </div>
+  </body>
+  <script>
+    let login = document.getElementById("login-btn");
+    let password = document.getElementById("password");
+    window.onload = function () {
+      login.addEventListener("click", loginfun);
+      change();
+    };
+    function change() {
+      let user = JSON.parse(localStorage.getItem("user"));
+
+      if (user == null) {
+        return;
+      }
+      location.href = "首页.html";
+    }
+    function loginfun() {
+      let data = {
+        username: username.value,
+        Password: password.value,
+      };
+      if (remember.checked) {
+        localStorage.setItem("users", JSON.stringify(data));
+        alert("登陆成功");
+      }
+      location.href = "首页.html";
+    }
+  </script>
+</html>

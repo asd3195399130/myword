@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="" />
+  </head>
+  <style>
+    #box {
+      width: 500px;
+      margin: auto;
+    }
+    #text {
+      width: 500px;
+      margin: auto;
+    }
+    #text textarea {
+      width: 400px;
+      height: 200px;
+    }
+  </style>
+  <body>
+    <div id="box">
+      <form action="#">
+        查询敏感词：<input type="text" name="" id="input" />
+        <button id="submit">搜索</button>
+      </form>
+    </div>
+    <div id="text"></div>
+  </body>
+  <script>
+    (function () {
+      querywordfun();
+    })();
+    function querywordfun() {
+      document.querySelector("form").addEventListener("click", function () {
+        event.preventDefault();
+        let res = document.getElementById("input").value;
+        fetch("https://v.api.aa1.cn/api/api-mgc/index.php?msg=" + res)
+          .then((res) => {
+            // console.log(res);
+            return res.json();
+          })
+          .then((resault) => {
+            queryfun(resault);
+          });
+      });
+    }
+    function queryfun(data) {
+      let html = "";
+      if (data.desc == "暂无敏感词") {
+        html += `<div>
+        <h1>${data.desc}</h1>
+       
+        </div>`;
+      } else {
+        html += `<div>
+        <h1>${data.desc}为：${data.ci}</h1>
+        </div>`;
+      }
+
+      document.getElementById("text").innerHTML = html;
+    }
+  </script>
+</html>

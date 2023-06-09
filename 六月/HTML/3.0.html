@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="" />
+  </head>
+  <style>
+    .memo {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .memo h2 {
+      font-size: 24px;
+      text-align: center;
+    }
+
+    .memo form {
+      display: flex;
+      margin-bottom: 10px;
+    }
+
+    .memo input[type="text"] {
+      flex-grow: 1;
+      margin-right: 10px;
+      padding: 6px;
+      font-size: 16px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    .memo button {
+      padding: 6px 12px;
+      font-size: 16px;
+      border-radius: 4px;
+      border: none;
+      background-color: #007bff;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .memo button:hover {
+      background-color: #0069d9;
+    }
+
+    .memo li {
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: #f7f7f7;
+      border-radius: 5px;
+      font-size: 16px;
+      position: relative;
+    }
+
+    .memo li button {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      border-radius: 50%;
+      border: none;
+      background-color: #dc3545;
+      color: #fff;
+      cursor: pointer;
+      padding: 6px;
+      font-size: 16px;
+      line-height: 1;
+    }
+
+    .memo li button:hover {
+      background-color: #c82333;
+    }
+  </style>
+  <body>
+    <div class="memo">
+      <h2>备忘录</h2>
+      <form>
+        <input type="text" placeholder="请输入备忘录内容" id="memo-input" />
+        <button type="submit" id="memo-button">添加</button>
+      </form>
+      <ul id="memo-list"></ul>
+    </div>
+  </body>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+  <script>
+    $(document).ready(function () {
+      $("#memo-button").click(function (event) {
+        event.preventDefault();
+        var memoText = $("#memo-input").val();
+        if (memoText !== "") {
+          $("#memo-list").append(
+            "<li>" + memoText + '<button class="delete">x</button></li>'
+          );
+          $("#memo-input").val("");
+        }
+      });
+
+      $(document).on("click", ".delete", function () {
+        $(this).parent().remove();
+      });
+    });
+  </script>
+</html>

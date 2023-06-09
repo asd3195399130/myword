@@ -1,0 +1,265 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      #box {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 700px;
+        height: 500px;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 10px #000;
+        font-size: 15px;
+      }
+      h1 {
+        text-align: center;
+        color: red;
+        border-bottom: 1px solid black;
+      }
+      .input-field {
+        margin: auto;
+      }
+      /* table {
+        width: 80%;
+      } */
+      .head {
+        height: 50px;
+      }
+      .content {
+        height: 600px;
+        /* outline: yellow solid 1px; */
+      }
+
+      .list {
+        margin-top: 10px;
+        height: 30px;
+        display: flex;
+        text-align: center;
+      }
+      .left {
+        width: 50%;
+        text-indent: 40px;
+      }
+
+      .time {
+        width: 30%;
+      }
+
+      .operation {
+        width: 20%;
+        text-align: center;
+      }
+
+      .operation button {
+        padding: 5px;
+        margin-left: 5px;
+        background-color: #428bca;
+        border-color: #357ebd;
+        color: #fff;
+        border-radius: 5px;
+        border: none;
+      }
+
+      .listtodo {
+        margin: 10px 0;
+        display: flex;
+      }
+    </style></head
+  ><!DOCTYPE html> -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background-color: #f5f5f5;
+      }
+      * {
+        margin: 0 auto;
+      }
+      #box {
+        width: 600px;
+        box-shadow: 0 0 10px #000;
+        background: url("https://ts1.cn.mm.bing.net/th/id/R-C.c532451591260ae1375ff4aad56fff0f?rik=4BaZdK%2fWEqzpnA&riu=http%3a%2f%2fimg.mm4000.com%2ffile%2f4%2fbf%2f40999b5dcf.jpg&ehk=JdOlhJdcppIZDoVlGpG7cppBHyBn0h3fo4JXW0jyQT0%3d&risl=&pid=ImgRaw&r=0")
+          no-repeat;
+        border-radius: 10px;
+        padding-top: 30px;
+      }
+      #task {
+        width: 250px;
+        height: 40px;
+        padding-left: 10px;
+        font-size: 30px;
+        border-radius: 15px 0 0 15px;
+        border-color: #e6e6e6;
+        border-right: none;
+      }
+      h2 {
+        margin-bottom: 30px;
+        font-family: "楷体";
+        color: red;
+      }
+      #btn {
+        position: relative;
+        bottom: 4.5px;
+        width: 70px;
+        height: 46px;
+        border-radius: 0 15px 15px 0;
+        border-color: red;
+        background-color: red;
+        border-left: none;
+        cursor: pointer;
+        margin-bottom: 30px;
+        color: gold;
+        font-family: "楷体";
+      }
+      ol {
+        width: 400px;
+        font-size: 22px;
+        text-align: left;
+      }
+      ol li {
+        position: relative;
+        border-bottom: 1px solid greenyellow;
+        margin-bottom: 5px;
+        height: 45px;
+        line-height: 45px;
+        font-family: "楷体";
+      }
+      ol li button {
+        padding: 5px;
+        border-radius: 5px;
+        border-color: #e6e6e6;
+        cursor: pointer;
+        background-color: #e6e6e6;
+        font-family: "楷体";
+      }
+      .shanc {
+        position: absolute;
+        right: 120px;
+      }
+      .huifu {
+        position: absolute;
+        right: 0;
+      }
+      .hfu {
+        position: absolute;
+        right: 188px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box" align="center">
+      <h2>今日任务</h2>
+      <input type="text" id="task" /><button id="btn">添加</button>
+      <ol id="list"></ol>
+    </div>
+  </body>
+  <script>
+    window.onload = function () {
+      //添加按钮点击事件
+      btn.addEventListener("click", btnFun);
+      //输入框键盘事件
+      task.addEventListener("keyup", btnFun);
+      //ol委托事件
+      list.addEventListener("click", olFun);
+      //全选值改变事件
+
+      xuanRanFun();
+    };
+
+    //委托事件
+    function olFun() {
+      if (event.target.innerHTML == "删除") {
+        data = JSON.parse(localStorage.getItem("data"));
+        let index = event.target.getAttribute("index");
+        data.splice(index, 1);
+        localStorage.setItem("data", JSON.stringify(data));
+        xuanRanFun();
+      }
+      if (event.target.innerHTML == "完成") {
+        let index = event.target.getAttribute("index");
+        shanxianFun(index);
+      }
+      if (event.target.innerHTML == "恢复初始状态") {
+        let index = event.target.getAttribute("index");
+        huifunFun(index);
+      }
+    }
+    //存储数据
+    function btnFun() {
+      if (event.keyCode == 13 || event.type == "click") {
+        let taskObj = task.value;
+        let data = localStorage.getItem("data");
+        if (data == null) {
+          data = [
+            {
+              task: taskObj,
+            },
+          ];
+        } else {
+          data = JSON.parse(data);
+          data.push({
+            task: taskObj,
+          });
+        }
+        task.value = "";
+        localStorage.setItem("data", JSON.stringify(data));
+        xuanRanFun();
+      }
+    }
+    //渲染列表
+    function xuanRanFun(data) {
+      data = JSON.parse(localStorage.getItem("data"));
+      let html = ``;
+      data.forEach((item, index) => {
+        html += `  <li class="lii" ${
+          item.state == 2
+            ? 'style="text-decoration:line-through;color:#ccc"'
+            : ""
+        }>
+           <span>${item.task}</span>
+           <button  value="2" class="shanc" index="${index}">完成</button>
+           <button value="3" index="${index}" class="huifu">恢复初始状态</button>
+          <button class="hfu" index="${index}">删除</button>
+        </li>`;
+      });
+
+      document.getElementById("list").innerHTML = html;
+      let chkObj = Array.from(document.getElementsByClassName("chk"));
+    }
+
+    function huifunFun(index) {
+      data = JSON.parse(localStorage.getItem("data"));
+      data[index].state = 3;
+      let liObj = document.getElementsByClassName("lii");
+      liObj[index].style.textDecoration = "none";
+      liObj[index].style.color = "black";
+      localStorage.setItem("data", JSON.stringify(data));
+    }
+    function shanxianFun(index) {
+      data = JSON.parse(localStorage.getItem("data"));
+      data[index].state = 2;
+      let liObj = document.getElementsByClassName("lii");
+      liObj[index].style.textDecoration = "line-through";
+      liObj[index].style.color = "#ccc";
+      liObj[index].firstElementChild.checked = false;
+      localStorage.setItem("data", JSON.stringify(data));
+    }
+  </script>
+</html>

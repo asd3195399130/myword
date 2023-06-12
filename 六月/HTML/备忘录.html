@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../sass/六月九日考试.css" />
+  </head>
+  <style></style>
+  <body>
+    <div id="box">
+      <h1>备忘录</h1>
+      <form id="boos">
+        <input type="checkbox" name="" id="checkll" />
+        <input type="text" id="textcon" />
+        <button>添加</button>
+      </form>
+      <div class="memo">
+        <ul id="ullist"></ul>
+      </div>
+    </div>
+  </body>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+  <script>
+    $(function () {
+      $("#boos").submit(function (e) {
+        e.preventDefault();
+        // console.log(123);
+        var memo = $("#textcon").val();
+        if (memo !== "") {
+          $("ul").append(
+            "<li> <input type='checkbox' id='' class='cook'> " +
+              memo +
+              "<button class = 'reove'>删除</button><button>已完成</button><button>恢复</button></li>"
+          );
+          $("#textcon").val();
+        }
+      });
+    });
+    $("document").on("click", ".reove", function () {
+      console.log(this);
+    });
+    $("#checkll").click(function () {
+      $(".cook").prop("checked", this.checked);
+    });
+    $(".cook").click(function () {
+      var len = $(".cook:checked").length;
+      var total = $(".cook").length;
+      if (len == total) {
+        $("#checkll").prop("checked", true);
+      } else {
+        $("#checkll").prop("checked", false);
+      }
+    });
+  </script>
+</html>

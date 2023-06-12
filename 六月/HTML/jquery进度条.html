@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="" />
+  </head>
+  <style>
+    .progress-bar {
+      position: relative;
+      width: 350px;
+      height: 30px;
+      border-radius: 50px;
+      background-color: #ddd;
+    }
+
+    .progress {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      border-radius: 50px;
+    }
+    .post {
+      background: linear-gradient(
+        to right,
+        #7303c0,
+        #ec38bc,
+        #03001e,
+        #fdeff9,
+        #e44d26
+      );
+    }
+
+    .progress-text {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      line-height: 20px;
+      padding: 0 10px;
+      color: #333;
+      font-size: 14px;
+    }
+    .hide {
+      width: 250px;
+      height: 90px;
+      text-align: center;
+      line-height: 90px;
+      background-color: #ccc;
+      display: none;
+    }
+  </style>
+  <body>
+    <div class="hide">加载完成</div>
+    <div class="progress-bar">
+      <div class="progress post"></div>
+      <div class="progress-text">0%</div>
+    </div>
+  </body>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+  <script>
+    $(function () {
+      // 获取进度条、进度元素和文字元素
+      var progressBar = $(".progress-bar");
+      var progress = $(".progress");
+      var progressText = $(".progress-text");
+      var show = $(".hide");
+      $(".post").animate(
+        {
+          width: "100%",
+        },
+        1000
+      );
+      // 设置初始进度为 0%
+      var percent = 0;
+
+      // 定义一个 setInterval() 方法，每 10 毫秒更新一次进度条和文字
+      var intervalId = setInterval(function () {
+        percent += 1; // 假设进度每次增加 1%
+        if (percent > 100) {
+          percent = 100; // 进度达到 100% 后停止更新
+          clearInterval(intervalId);
+          show.css("display", "block");
+        }
+
+        progress.css("width", percent + "%", {
+          background:
+            "linearGradient(to right,#03001e, #7303c0,#ec38bc, #fdeff9)",
+        }); // 更新进度元素的宽
+        progressText.text(percent + "%"); // 更新文字内容
+      }, 1000);
+    });
+  </script>
+</html>

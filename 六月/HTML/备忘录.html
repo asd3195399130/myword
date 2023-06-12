@@ -7,51 +7,124 @@
     <title>Document</title>
     <link rel="stylesheet" href="../sass/六月九日考试.css" />
   </head>
-  <style></style>
+  <style>
+    .hover {
+      color: #dbdbdb;
+      text-decoration: line-through;
+    }
+  </style>
   <body>
     <div id="box">
       <h1>备忘录</h1>
-      <form id="boos">
+      <div id="boos">
         <input type="checkbox" name="" id="checkll" />
         <input type="text" id="textcon" />
         <button>添加</button>
-      </form>
+      </div>
+
       <div class="memo">
         <ul id="ullist"></ul>
+      </div>
+      <div>
+        <a href="#"><span id="num">0</span>未完成</a>
+        <a href="#" id="allList">所有</a>
+        <a href="#" id="undone">未完成</a>
+        <a href="#" id="done">完成</a>
+        <a href="#" id="cleardone">清楚已完成</a>
       </div>
     </div>
   </body>
   <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
   <script>
+    let attr = [];
     $(function () {
-      $("#boos").submit(function (e) {
-        e.preventDefault();
-        // console.log(123);
-        var memo = $("#textcon").val();
-        if (memo !== "") {
-          $("ul").append(
-            "<li> <input type='checkbox' id='' class='cook'> " +
-              memo +
-              "<button class = 'reove'>删除</button><button>已完成</button><button>恢复</button></li>"
-          );
-          $("#textcon").val();
-        }
+      //添加
+      $("#textcon").keydown(memo);
+      //获取本地存储
+      let data = getlocalfun();
+      //渲染列表
+      shoememo();
+      //全选
+      checkallfun();
+      //确认全选
+      clickcheckfun();
+    });
+    //添加函数
+    function memo() {
+      if (event.keyCode != 13) return;
+      let data = {
+        statues: false,
+        cont: $("#textcon").val(),
+      };
+      attr.unshift(data);
+      $("#textcon").val("");
+      shoememo();
+    }
+    function shoememo() {
+      let html = "";
+      attr.forEach((item, index) => {
+        html += `<li>
+            <input type="checkbox" ${item.statues ? "checked" : ""}/>
+            <span class="${item.statues ? "hover" : ""}">${item.cont}</span>
+            <button>删除</button>
+          </li>`;
       });
-    });
-    $("document").on("click", ".reove", function () {
-      console.log(this);
-    });
-    $("#checkll").click(function () {
-      $(".cook").prop("checked", this.checked);
-    });
-    $(".cook").click(function () {
-      var len = $(".cook:checked").length;
-      var total = $(".cook").length;
-      if (len == total) {
-        $("#checkll").prop("checked", true);
-      } else {
-        $("#checkll").prop("checked", false);
+      $("ul").html(html);
+      $("ul input").on("change", starus);
+      $("ul button").on("click", remove);
+      localStorage.setItem("attr", JSON.stringify(attr));
+      checkallfun();
+      countfun();
+    }
+    //未完成的数量
+    function countfun() {
+      let data = attr.filter((item) => {
+        return item.statues == false;
+      });
+      $("#num").html(data.length);
+    }
+    //全选
+    function checkallfun() {
+      if (attr.length == 0) {
+        $("input [type=checkbox]").html("false");
+        return false;
       }
-    });
+      let allCheck = attr.every((item) => item.statues);
+      $("#checkll").html(allCheck ? "flase" : "true");
+      return allCheck;
+    }
+    function clickcheckfun() {
+      $("#checkll").click(function () {
+        let statues = !checkallfun();
+        $(this).html(statues ? "flase" : "true");
+        attr = attr.map((item) => {
+          return {
+            ...item,
+            statues: statues,
+          };
+        });
+        shoememo();
+      });
+    }
+    //删除
+    function remove() {
+      // alert("1");
+      let index = $(this).parent().index();
+      attr.splice(index, 1);
+      shoememo();
+    }
+    function starus() {
+      let checked = $(this).prop("checked");
+      // console.log(checked);
+      attr[$(this).parent().index()].statues = checked;
+      shoememo();
+    }
+    //本地存储
+    function getlocalfun() {
+      let data = localStorage.getItem("attr");
+      if (data != null) {
+        attr = JSON.parse(data);
+      }
+    }
   </script>
 </html>

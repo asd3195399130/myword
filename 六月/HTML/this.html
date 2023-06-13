@@ -176,8 +176,16 @@
     // console.log(b);
     // var a = 666;
     // console.log();
-    var a = [1, 2, 3, 3, 5, 2, 6, 6, "A", undefined, true, null, true, false];
-    var s = new Set();
-    console.log(s.size(a));
+    // var a = [1, 2, 3, 3, 5, 2, 6, 6, "A", undefined, true, null, true, false];
+    // var s = new Set();
+    // console.log(s.size(a));
+    let obj = {
+      a:123
+    };
+    if (Object.keys(obj).length === 0) {
+      console.log("是空对象");
+    } else {
+      console.log("不是空对象");
+    }
   </script>
 </html>

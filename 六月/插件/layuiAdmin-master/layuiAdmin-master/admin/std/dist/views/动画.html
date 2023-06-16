@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="" />
+  </head>
+  <style>
+    .snow-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -1;
+      background-color: #000;
+    }
+
+    .snowflakes {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .snowflake {
+      position: absolute;
+      top: -10px;
+      font-size: 2em;
+      color: #fff;
+      user-select: none;
+      cursor: default;
+      pointer-events: none;
+      animation: snowflakes-fall linear infinite;
+    }
+
+    /* 雪花下落动画 */
+    @keyframes snowflakes-fall {
+      0% {
+        transform: translateY(-100%);
+      }
+      100% {
+        transform: translateY(100%);
+      }
+    }
+  </style>
+  <body>
+    <div id="box">
+      <div class="snow-container">
+        <div class="snowflakes" aria-hidden="true">
+          <div class="snowflake">❄︎</div>
+          <div class="snowflake">❄︎</div>
+          <div class="snowflake">❄︎</div>
+          <div class="snowflake">❄︎</div>
+          <div class="snowflake">❄︎</div>
+          <div class="snowflake">❄︎</div>
+          <div class="snowflake">❄︎</div>
+          <div class="snowflake">❄︎</div>
+          <div class="snowflake">❄︎</div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+  <script>
+    $(function () {
+      //获取屏幕宽度和高度
+      var w = $(window).width();
+      var h = $(window).height();
+      //设置雪花的数量和速度
+
+      var numFlake = 200;
+      var speed = 5000;
+
+      for (var i = 0; i < numFlake; i++) {
+        $(".snowflakes").append(
+          '<div class="snowflake">' + $(".snowflake").html() + "</div>"
+        );
+      }
+      $(".snowflake").each(function () {
+        var xPos = Math.floor(Math.random() * w);
+        var yPos = Math.floor(Math.random() * h);
+        var size = Math.floor(Math.random() * 50) + 10;
+        $(this).css({
+          left: xPos,
+          top: yPos,
+          fontSize: size + "px",
+          animationDuration: speed + "ms",
+        });
+      });
+    });
+  </script>
+</html>

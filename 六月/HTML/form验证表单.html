@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="" />
+    <script src=""></script>
+  </head>
+  <style>
+    .error {
+      color: #c31432;
+    }
+  </style>
+  <body>
+    <form action="#" id="myfrom" class="cmxform">
+      <p>
+        <label for="user">用户框</label>
+        <input type="text" id="user" required minlength="3" name="user" />
+      </p>
+      <p>
+        <label for="password">密码框</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          maxlength="13"
+          required
+          minlength="5" />
+      </p>
+      <p>
+        <input class="submit" type="submit" value="Login" />
+      </p>
+    </form>
+  </body>
+  <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
+  <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+  <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
+  <script>
+    $.validator.setDefaults({
+      submitHandler: function () {
+        alert("提交成功");
+      },
+    });
+    $(function () {
+      var validator = $("#myform").validate({
+        errorPlacement: function (error, element) {
+          $(element)
+            .closest("form")
+            .find("label[for='" + element.attr("id") + "']")
+            .append(error);
+        },
+        errorElement: "span",
+        messages: {
+          user: {
+            required: "(这是必填字段)",
+            minlength: "(不能少于3个字符)",
+          },
+          password: {
+            required: "(这是必填字段)",
+            minlength: "(字母不能少于5个且不能大于12个)",
+            maxlength: "(字母不能超过5个且不能大于12个)",
+          },
+        },
+      });
+      $(".cmxform").click(function () {
+        validator.resetForm();
+      });
+    });
+  </script>
+</html>

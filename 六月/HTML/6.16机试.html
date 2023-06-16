@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../插件/layui-v2.8.3/layui/css/layui.css" />
+    <script src="../插件/layui-v2.8.3/layui/layui.js"></script>
+  </head>
+  <style>
+    iframe {
+      width: 500px;
+      height: 500px;
+    }
+    #page {
+      display: flex;
+    }
+    ul {
+      width: 500px;
+    }
+  </style>
+  <body>
+    <div id="box">
+      <div class="layui-tab layui-tab-brief">
+        <ul class="layui-tab-title">
+          <li class="layui-this">首页</li>
+          <li>归档</li>
+          <li>标签</li>
+          <li>添加</li>
+          <li>搜索</li>
+        </ul>
+        <div class="layui-tab-content">
+          <div class="layui-tab-item layui-show">
+            <iframe
+              src="https://img2.baidu.com/it/u=1961020463,2166170204&fm=253&fmt=auto&app=138&f=JPEG?w=348&h=500"
+              frameborder="0"></iframe>
+            <iframe src="./jquery动画.html" frameborder="0"></iframe>
+          </div>
+          <div class="layui-tab-item">
+            <iframe
+              src="https://img1.baidu.com/it/u=3632038997,924978105&fm=253&fmt=auto&app=138&f=JPEG?w=343&h=500"
+              frameborder="0"></iframe>
+          </div>
+          <div class="layui-tab-item">
+            <iframe
+              src="https://img1.baidu.com/it/u=2476465812,3136694343&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=729"
+              frameborder="0"></iframe>
+          </div>
+          <div class="layui-tab-item">
+            <iframe
+              src="https://img0.baidu.com/it/u=2590239854,804641150&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=750-"
+              frameborder="0"></iframe>
+          </div>
+          <div class="layui-tab-item">
+            <iframe
+              src="https://img0.baidu.com/it/u=1852145351,1199377880&fm=253&fmt=auto&app=138&f=JPEG?w=333&h=499"
+              frameborder="0"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="page">
+      <button class="layui-btn up">上一页</button>
+      <h1>1</h1>
+      <button class="layui-btn down">下一页</button>
+    </div>
+  </body>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+  <script>
+    let page = 1;
+    $(".up").click(function () {
+      page--;
+      if (page < 1) {
+        alert("已经是第一页");
+      } else {
+        $("h1").html(page);
+      }
+    });
+    $(".down").click(function () {
+      page++;
+      $("h1").html(page);
+    });
+  </script>
+</html>

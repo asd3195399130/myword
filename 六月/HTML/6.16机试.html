@@ -265,11 +265,13 @@
       if (page < 1) {
         alert("已是第一页");
       } else {
+        showlist();
         $("h1").html(page);
       }
     });
     $(".down").click(function () {
       page++;
+      showlist();
       $("h1").html(page);
     });
     $(function () {});

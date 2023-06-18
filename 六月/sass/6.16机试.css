@@ -1,0 +1,157 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#page {
+  display: flex;
+}
+
+/* ul {
+      width: 500px;
+      float: right;
+    }
+    .layui-tab-item {
+      float: right;
+    } */
+.layui-tab-title {
+  height: 71px;
+}
+
+.layui-tab {
+  width: 1200px;
+  /* height: ; */
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  line-height: 90px;
+}
+
+a {
+  font-size: 30px;
+  font-weight: 900;
+  letter-spacing: 1;
+}
+
+li a {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+#box {
+  width: 100%;
+  height: 80px;
+  /* border: 1px solid rgb(124, 124, 124); */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#box:hover {
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+li:hover {
+  border-bottom: 2px solid #0f9b0f;
+}
+
+.mine-content {
+  width: 1200px;
+  height: 200px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+  margin-top: 38px;
+  border-radius: 0.4rem;
+  align-items: center;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.mine-content:hover {
+  box-shadow: 8px 8px 10px rgba(0, 0, 0, 0.2);
+}
+
+.mine-content a {
+  padding: 5px;
+  font-size: 30px;
+  font-weight: 900;
+  margin-top: 15px;
+}
+
+#content {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 90px;
+  box-sizing: border-box;
+  width: 100%;
+  position: relative;
+}
+
+@media screen and (min-width: 768px) {
+  #fas {
+    position: absolute;
+    top: 135px;
+    right: 127px;
+  }
+  #page {
+    float: right;
+    margin-right: 118px;
+  }
+}
+@media screen and (min-width: 1920px) {
+  #fas {
+    position: absolute;
+    top: 135px;
+    right: 365px;
+  }
+  #page {
+    float: right;
+    margin-right: 349px;
+  }
+}
+#left-buttom {
+  width: 350px;
+  height: 450px;
+  background: url();
+  background-size: cover;
+}
+
+p {
+  margin-top: 50px;
+  margin-left: 15px;
+}
+
+h3 {
+  margin-left: 15px;
+  margin-top: 15px;
+}
+
+.foot-content {
+  margin-top: 35px;
+  margin-left: 15px;
+}
+
+.foot-content span a {
+  font-size: 15px;
+}
+
+.foot-content #cdn {
+  font-size: 16px;
+  float: right;
+}
+
+.foot-content #cdn:hover {
+  color: blue;
+}
+
+footer a {
+  font-size: 10px;
+}
+
+.tag {
+  font-size: 20px;
+  transition: all 0.3s ease;
+}
+
+.tag .small {
+  transform: scale(0.8);
+}/*# sourceMappingURL=6.16机试.css.map */

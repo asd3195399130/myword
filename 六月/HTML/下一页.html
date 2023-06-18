@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="" />
+    <script src=""></script>
+  </head>
+  <style></style>
+  <body>
+    <div id="data-container"></div>
+    <div id="pagination">
+      <button id="prev-btn">上一页</button>
+      <button id="next-btn">下一页</button>
+    </div>
+  </body>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+  <script>
+    $(function () {
+      var data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+      var pageSize = 5;
+      var currentPage = 1;
+      var totalPages = Math.ceil(data.length / pageSize);
+
+      function showData() {
+        var startIndex = (currentPage - 1) * pageSize;
+        var endIndex = startIndex + pageSize;
+        var pageData = data.slice(startIndex, endIndex);
+        var html = "";
+        for (var i = 0; i < pageData.length; i++) {
+          html += "<div>" + pageData[i] + "</div>";
+        }
+        $("#data-container").html(html);
+      }
+
+      function updatePagination() {
+        $("#prev-btn").prop("disabled", currentPage == 1);
+        $("#next-btn").prop("disabled", currentPage == totalPages);
+      }
+
+      showData();
+      updatePagination();
+
+      $("#prev-btn").click(function () {
+        if (currentPage > 1) {
+          currentPage--;
+          showData();
+          updatePagination();
+        }
+      });
+
+      $("#next-btn").click(function () {
+        if (currentPage < totalPages) {
+          currentPage++;
+          showData();
+          updatePagination();
+        }
+      });
+    });
+  </script>
+</html>

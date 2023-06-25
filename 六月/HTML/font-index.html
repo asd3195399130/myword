@@ -1,0 +1,106 @@
+<script>
+  let DaTa = [];
+  $(function () {
+    $.getJSON("../json/data.json", function (data) {
+      //   console.log(data);
+      DaTa = data;
+      getlist();
+    });
+    $(document).on("pjax:success", function () {
+      if (location.pathname == "./联想.html") {
+        let page = 1;
+        if (location.search) {
+          page = location.search.match(/page=(\d+)/)[1];
+        }
+        getlist(page);
+      }
+    });
+  });
+  function shouwlist(data) {
+    let html = "";
+    data.forEach((item, index) => {
+      html += `<div class='cont-list'>
+                 <div>
+                    <h3><a href="">${item.title}${item.id}</a></h3>
+                    <div class="intro">
+                      <p>
+                        ${item.intro}
+                      </p>
+                    </div>
+                    <div class="list-footer">
+                      <div>
+                        <span>
+                          <i class="iconfont icon-shijian"></i>
+                          ${getAgoMonth(item.created)}</span>
+                      </div>
+                      <div class="tags">
+                        ${getTagsList(item.tags)}
+                      </div>
+                      <div class="read-all">
+                        <span>阅读全文 <i class="iconfont icon-iconfontjiantou4"></i></span>
+                      </div>
+                    </div>
+                  </div>        
+        </div>`;
+    });
+    $("#pajx-container").html(html);
+  }
+  function getlist(page = 1, imit = 5) {
+    shouwlist(DaTa.slice((page - 1) * imit, page * imit));
+    let total = Math.ceil(DaTa.length / imit);
+    let html = `
+     <div class='page-box'>
+         ${
+           page == 1
+             ? ""
+             : `<a href="联想.html?page=${
+                 page - 1
+               }" class="prev" data-pjax>上一页</a>`
+         }
+                    ${
+                      page == total
+                        ? ""
+                        : `<a href="联想.html?page=${
+                            +page + 1
+                          }" class="next" data-pjax>下一页</a>`
+                    }
+        </div>`;
+    $("#pjax-container").append(html);
+  }
+  function getTagsList(tags) {
+    let html = "";
+    tags.forEach((item) => {
+      html += ` <span>
+                    <i class="iconfont ${getIcon(item)}"></i>
+                    ${item}
+                </span>`;
+    });
+    return html;
+  }
+  function getIcon(tag) {
+    switch (tag) {
+      case "dev":
+        return "iconfont icon-biaoqian";
+      case "日常开发":
+        return "icon-wenjianjia";
+      default:
+        return "iconfont icon-biaoqian";
+    }
+  }
+  function getAgoMonth(date) {
+    let now = new Date();
+    let old = new Date(date);
+    let ago = now - old;
+    let month = ago / 1000 / 60 / 60 / 24 / 30;
+    if (month > 12) {
+      return old.getFullYear() + "年";
+    } else {
+      return numToChinese(Math.floor(month)) + "个月前";
+    }
+  }
+  //数字转中文
+  function numToChinese(num) {
+    let arr = ["一", "二", "三", "四", "五", "六", "七", "八", "九"];
+    return arr[num - 1];
+  }
+</script>

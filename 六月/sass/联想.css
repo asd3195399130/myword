@@ -1,0 +1,115 @@
+:root {
+  --color-break: #1e9600;
+  --background-break: #fff200;
+  --background-clip: #ee9ca7;
+  --box-show: rgba(0, 0, 0, 0.2);
+  --color-break-clip: #021b79;
+  --color-break-syan: #e9e4f0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--backgeound-break);
+}
+
+.header {
+  width: 100%;
+  height: 14vh;
+  background: var(--background-clip);
+  box-shadow: 4px 4px 6px var(--box-show);
+}
+
+.header:hover {
+  box-shadow: 5px 5px 7px var(--box-show);
+}
+
+.header-content-box {
+  margin: 0 auto;
+  width: 30vw;
+  height: 14vh;
+}
+
+.header-content {
+  width: 52vw;
+  height: 14vh;
+  background-color: var(--background-clip);
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+a {
+  text-decoration: none;
+}
+
+.left {
+  line-height: 120px;
+  height: 100%;
+}
+
+.header-content .header-content-box .left a {
+  height: 100%;
+  font-size: 35px;
+  color: #fff200;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  line-height: 120px;
+}
+
+li {
+  margin-left: 30px;
+}
+
+ul li a:hover {
+  border-bottom: 3px solid #021b79;
+  color: #021b79;
+}
+
+ul li a {
+  color: var(--color-break-syan);
+}
+
+.active {
+  border-bottom: 3px solid var(--color-break-clip);
+  color: var(--color-break-clip);
+}
+
+.content {
+  width: 100vw;
+  margin-top: 65px;
+}
+
+.con-list {
+  border: 1px solid var(--color-break-clip);
+}
+
+.main-content {
+  margin: 0 auto;
+  width: 70%;
+  margin-top: 65px;
+  padding-top: 20px;
+}
+
+.main-content .con-list {
+  margin: 0 auto;
+  width: 82%;
+  height: 145px;
+  box-shadow: 2px 2px 5px var(--shadow-color);
+  border-radius: 10px;
+  margin-top: 30px;
+}
+
+.main-content .con-list:hover {
+  box-shadow: 3px 3px 6px var(--shadow-color);
+  transform: scale(1.03);
+  transition: all 0.5s;
+}/*# sourceMappingURL=联想.css.map */

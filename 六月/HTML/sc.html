@@ -1,0 +1,58 @@
+<div style="height: 200px; width: 100%"></div>
+<script src="../js/nprogress.js"></script>
+<script src="../js/pjax.js"></script>
+<script>
+  var scrollInit = 0;
+  var fSize, headerHeight;
+  $(function () {
+    fSize = parseInt($(".left a").css("font-size"));
+    headerHeight = parseInt($(".header-content").height());
+    window.onscroll = function () {
+      let sTop = event.target.scrollingElement.scrollTop;
+      let height = parseInt($(".header-content").height());
+      if (sTop - scrollInit > 0) {
+        //向下滚动
+        fSize = fSize - fSize * 0.01;
+        fSize = fSize < 16 ? 16 : fSize;
+
+        //头部得高度
+        h = height - headerHeight * 0.05;
+        minH = headerHeight * 0.7;
+        h = h < minH ? minH : h;
+      } else {
+        fSize = fSize + fSize * 0.05;
+        fSize = fSize > 32 ? 32 : fSize;
+
+        //头部得高度
+        h = height + headerHeight * 0.05;
+        h = h > headerHeight ? headerHeight : h;
+      }
+      scrollInit = sTop;
+      $(".header-content").css("height", h + "px");
+      $(".left a").css("font-size", fSize);
+    };
+    if (location.pathname == "/联想.html") {
+      $("li a").eq(0).addClass("active");
+    }
+    $("ul li a").click(function () {
+      $("ul li a").removeClass("active");
+      $(this).addClass("active");
+    });
+    $("body").css({
+      "background-color": "#fff",
+    });
+    $(document).pjax("a[data-pjax]", "#pjax-container", {
+      fragment: "#pjax-container",
+      timeout: 5000,
+    });
+    $(document).on("pjax:start", function () {
+      NProgress.start();
+    });
+    $(document).on("pjax:end", function () {
+      NProgress.done();
+    });
+    $(document).on("pjax:complete", function () {
+      // Do something after PJAX request completes
+    });
+  });
+</script>

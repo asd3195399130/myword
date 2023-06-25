@@ -6,186 +6,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="" />
+    <script src=""></script>
   </head>
-  <style></style>
-  <body>
-    <!-- <div id="box"></div>
-    <ul id="list">
-      <li>百度</li>
-      <li>阿里</li>
-      <li>腾讯</li>
-    </ul>
-    <script>
-      var list = document.getElementById("list");
-      var lis = list.querySelectorAll("li");
-      list.replaceChild(lis[2], lis[1]);
-      list.insertBefore(lis[1], list.children[2]);
-    </script> -->
-  </body>
-  <script>
-    // const person = {
-    //   name: "John",
-    //   age: 30,
-    //   introduce(city, suibian) {
-    //     console.log(
-    //       `My name is ${this.name}, I'm ${this.age} years old and I live in ${city}.`
-    //     );
-    //   },
-    // };
-    // person.introduce("Zheng zhou");
-    // // 输出：My name is John, I'm 30 years old and I live in New York.
-    // const otherPerson = { name: "阿里斯", age: 25 };
-    // person.introduce.call(otherPerson, "London", "阿九恐龙时代");
-    // const array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-    // console.log(Math.max.apply(null, array));
-    // var a = ["今天天气有异常"];
-    // var c = ["不太适合钓鱼"];
-    // Array.prototype.push.apply(a, c);
-    // console.log(a);
-    // const person = {
-    //   name: "阿狸",
-    //   age: 30,
-    //   introduce(city) {
-    //     console.log(`我叫${this.name},我今年${this.age}岁了,我来自${city}`);
-    //   },
-    // };
-    // const otherPerson = { name: "阿狸", age: 25 };
-    // const introduce = person.introduce.bind(otherPerson, "宇宙");
-    // introduce();
-
-    // function fun(arr) {
-    //   let len = arr.length;
-    //   for (var i = 0; i < len - 1; i++) {
-    //     for (var j = 0; j < len - 1 - i; j++) {
-    //       if (arr[j] > arr[j + 1]) {
-    //         var temp = arr[j];
-    //         arr[j] = arr[j + 1];
-    //         arr[j + 1] = temp;
-    //       }
-    //     }
-    //   }
-    //   return arr;
-    // }
-
-    // var arr = [
-    //   1, 2, 3, 4, 5, 9, 8, 7, 5669, 8, 45, 99, 77, 52, 8, 62451, 12369, 4,
-    //   123123, 1, 2, 3, 4, 5, 6, 7, 8, 9,
-    // ];
-    // console.log(fun(arr));
-    // Array.prototype.myevery = function (callblack) {
-    //   for (var i = 0; i < this.length; i++) {
-    //     if (!callblack(this[i])) {
-    //       return false;
-    //     }
-    //   }
-    //   return true;
-    // };
-
-    // var arr = [6, 7, 8, 9, "ABC"];
-    // const result = arr.myevery(function (num) {
-    //   return num > 0;
-    // });
-    // console.log(result);
-    // Array.prototype.myFilter = function (params) {
-    //   var resArr = [];
-    //   for (var i = 0; i < this.length; i++) {
-    //     if (params(this[i])) {
-    //       resArr.push(this[i]);
-    //     }
-    //   }
-    //   return resArr;
-    // };
-    // const people = [
-    //   { name: "张三", age: 30, sex: "男" },
-    //   { name: "丽丽", age: 20, sex: "女" },
-    //   { name: "李四", age: 40, sex: "男" },
-    // ];
-
-    // const filteredPeople = people.myFilter(function (person) {
-    //   return person.sex == "女";
-    // });
-    // console.log(filteredPeople);
-    // 第三个
-    // var d = " <img src=\'' alt=>";
-    // Array.prototype.myFind = function (params) {
-    //   for (var i = 0; i < this.length; i++) {
-    //     if (prompt(this[i])) {
-    //       return this[i];
-    //     }
-    //   }
-    //   return undefined;
-    // };
-    // Array.prototype.myFind = function (callback) {
-    //   for (var i = 0; i < this.length; i++) {
-    //     if (callback(this[i])) {
-    //       return this[i];
-    //     }
-    //   }
-    //   return undefined;
-    // };
-    // var arr = [
-    //   { name: "张三", age: 500, sex: "男" },
-    //   { name: "张太难", age: 900, seX: "男" },
-    //   { name: "张晓雯", age: 100, sex: "女" },
-    //   { name: "李怡雯", age: 100, sex: "女" },
-    // ];
-    // const result = arr.myFind(function (person) {
-    //   return person.age == 100;
-    // });
-    // console.log(result);
-    // console.log(set);
-    // let myset = new Set();
-    // console.log(myset);
-    // var personPrototype = {
-    //   firstname: "",
-    //   lastname: "",
-    //   getFullName: function () {
-    //     return this.firstname + " " + this.lastname;
-    //   },
-    // };
-    // var studeentPrototype = Object.create("personPrototype");
-    // studeentPrototype.grade = "";
-    // studeentPrototype.getGrade = function () {
-    //   return "my name is ...";
-    // };
-    // console.log(studeentPrototype);
-    // var personPrototype = {
-    //   firstName: "",
-    //   lastName: "",
-    //   getFullName: function () {
-    //     return this.firstName + " " + this.lastName;
-    //   },
-    // };
-    // console.log();
-    // let arr = [];
-    // console.log(arr);
-    // const obj1 = { a: 1, b: { c: 2 } };
-    // obj1.a = 3;
-    // const obj2 = Object.assign({}, obj1);
-    // console.log(obj2);
-    // function F() {
-    //   this.a = 1;
-    // }
-    // var obj = new F();
-    // console.log(obj.prototype);
-    // if (false) {
-    //   var a = 1;
-    //   let b = 2;
-    // }
-    // console.log(a);
-    // console.log(b);
-    // var a = 666;
-    // console.log();
-    // var a = [1, 2, 3, 3, 5, 2, 6, 6, "A", undefined, true, null, true, false];
-    // var s = new Set();
-    // console.log(s.size(a));
-    let obj = {
-      a:123
-    };
-    if (Object.keys(obj).length === 0) {
-      console.log("是空对象");
-    } else {
-      console.log("不是空对象");
+  <style>
+    .btn {
+      font-size: 1.2rem;
+      padding: 1rem 2.5rem;
+      border: none;
+      outline: none;
+      border-radius: 0.4rem;
+      cursor: pointer;
+      text-transform: uppercase;
+      background-color: rgb(14, 14, 26);
+      color: rgb(234, 234, 234);
+      font-weight: 700;
+      transition: 0.6s;
+      box-shadow: 0px 0px 60px #1f4c65;
+      -webkit-box-reflect: below 10px
+        linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
     }
-  </script>
+    .btn:active {
+      scale: 0.92;
+    }
+    .btn:hover {
+      background: rgb(2, 29, 78);
+      background: linear-gradient(
+        270deg,
+        rgba(2, 29, 79, 0.681) 0%,
+        rgba(31, 215, 232, 0.837) 60%
+      );
+      color: rgb(4, 4, 38);
+    }
+  </style>
+  <body>
+    <div id="box">
+      <button class="btn">Watch</button>
+    </div>
+  </body>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+  <script></script>
 </html>

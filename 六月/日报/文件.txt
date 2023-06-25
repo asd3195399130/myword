@@ -78,3 +78,9 @@ sessionstorage和localstorage类似但是他的存储的数据尽在当浏览器
 1、今日学习：laui框架
 3、今日作业：30%
 3、问题：layui练习中渲染列表不太熟
+
+6月20日
+日报
+1、今日内容：进度条，pjax渲染，分组分页，
+2、作业：已完成；
+3、今日问题：$("#pjax-container").load("index-pajx.html")中的script中没法转换

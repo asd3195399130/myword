@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../sass/联想.css" />
+    <link rel="stylesheet" href="../css/icon-font.css" />
+    <link rel="stylesheet" href="../css/nprogess.css" />
+    <link rel="stylesheet" href="../css/联想.css" />
+    <script src=""></script>
+  </head>
+  <style></style>
+  <body>
+    <div id="box">
+      <!-- 头部 -->
+      <div class="header"></div>
+      <!-- 内容 -->
+      <div class="content">
+        <div class="main-content" id="pjax-container"></div>
+      </div>
+      <!-- 尾部 -->
+      <div class="footer"></div>
+    </div>
+  </body>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+  <script>
+    $(".header").load("header.html");
+    $(".footer").load("sc.html");
+    $("#pjax-container").load("centent.html");
+  </script>
+</html>

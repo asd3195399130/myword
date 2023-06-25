@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="" />
+    <script src=""></script>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    #box {
+      position: relative;
+      overflow: hidden;
+      width: 446px;
+      height: 314px;
+      /* background: pink; */
+    }
+    #box img {
+      width: 100%;
+      height: 100%;
+      /* transition: all 0.1s; */
+    }
+    #box:hover img {
+      transform: scale(1.05);
+    }
+    #box::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      /* background-color: red; */
+      background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
+      opacity: 0;
+      z-index: 999;
+    }
+    #box:hover::before {
+      opacity: 1;
+    }
+    .info {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      color: #ccc;
+      padding: 25px 30px;
+      font-size: 18px;
+    }
+  </style>
+  <body>
+    <div id="box">
+      <img src="../image/i93ulmci2s1ws4xe9r5y90w867akmg094589.png" alt="" />
+      <div class="info">
+        <p>1999￥</p>
+        <h1>微软平板</h1>
+        <p>购认证翻新 Surface Pro 9 立省500元 券后价 ￥4,795起</p>
+        <a href="#">了解更多 > </a>
+      </div>
+    </div>
+  </body>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+  <script>
+    let arr1 = [1, 2, 3, 4, 5],
+      arr2 = [4, 5, 6, 7, 8];
+    function fun(arr1, arr2) {
+      // console.log(arr1, arr2);
+      // return arr1.filter((value) => arr2.includes(value));
+      // return arr1.filter((value) => !arr2.includes(value));
+      // return [...new Set([...arr1, ...arr2])];
+    }
+    let result = fun(arr1, arr2);
+    console.log(result);
+  </script>
+</html>

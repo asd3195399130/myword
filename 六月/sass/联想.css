@@ -88,10 +88,6 @@ ul li a {
   margin-top: 65px;
 }
 
-.con-list {
-  border: 1px solid var(--color-break-clip);
-}
-
 .main-content {
   margin: 0 auto;
   width: 70%;
@@ -103,13 +99,13 @@ ul li a {
   margin: 0 auto;
   width: 82%;
   height: 145px;
-  box-shadow: 2px 2px 5px var(--shadow-color);
+  box-shadow: 2px 2px 5px var(--box-show);
   border-radius: 10px;
   margin-top: 30px;
 }
 
 .main-content .con-list:hover {
-  box-shadow: 3px 3px 6px var(--shadow-color);
+  box-shadow: 3px 3px 6px var(--box-show);
   transform: scale(1.03);
   transition: all 0.5s;
 }/*# sourceMappingURL=联想.css.map */
